@@ -2,6 +2,8 @@ package com.mmadinastia.api.entities;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Usuario implements Serializable {
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@EqualsAndHashCode.Include
@@ -27,19 +29,21 @@ public class Usuario implements Serializable {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String usuario;
+	private String username;
 	
 	@Column(nullable = false)
 	private String email;
 	
 	@Column(nullable = false)
-	private String senha;
+	private String password;
 	
 	@Column(nullable = false)
-	private String equipeNome;
+	private String campName;
 	
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
-	private OffsetDateTime dataCadastro;
+	private OffsetDateTime registerDate;
 
+	private Set<Role> roles = new HashSet<>();
+	
 }
