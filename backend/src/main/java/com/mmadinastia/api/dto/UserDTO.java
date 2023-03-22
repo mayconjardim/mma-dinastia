@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.mmadinastia.domain.entities.Role;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,6 +17,6 @@ public class UserDTO implements Serializable {
 	private String email;
 	private String campName;
 	
-	private Set<Role> roles = new HashSet<>();
+	private Set<RoleDTO> roles = new HashSet<>();
 	
 }
