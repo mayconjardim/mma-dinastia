@@ -1,4 +1,4 @@
-package com.mmadinastia.api.entities;
+package com.mmadinastia.domain.entities;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;

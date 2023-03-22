@@ -7,12 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDTO implements Serializable {
+public class RoleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private Long id;
-	private String username;
-	private String email;
-	private String campName;
 	
+	private Long id;
+	private String authority;
+
 }
