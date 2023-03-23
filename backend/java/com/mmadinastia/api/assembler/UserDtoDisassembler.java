@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mmadinastia.api.dto.UserInsertDTO;
+import com.mmadinastia.api.dto.UserUpdateDTO;
 import com.mmadinastia.domain.entities.User;
 
 @Component
@@ -13,14 +14,20 @@ public class UserDtoDisassembler {
 	@Autowired
 	private ModelMapper modelMapper;
 
-    public User toDomainObject(UserInsertDTO userInsertDto) {
-        return modelMapper.map(userInsertDto, User.class);
-    }
+	public User toDomainObject(UserInsertDTO userInsertDto) {
+		return modelMapper.map(userInsertDto, User.class);
+	}
 
-    public void copyToDomainObject(UserInsertDTO userInsertDto, User user) {
-    	
-    	modelMapper.map(userInsertDto, user);
-        
-    }
+	public void copyToDomainObject(UserInsertDTO userInsertDto, User user) {
+		
+		modelMapper.map(userInsertDto, user);
+
+	}
+
+	public void copyToDomainObjectUpdate(UserUpdateDTO userUpdateDto, User user) {
+
+		modelMapper.map(userUpdateDto, user);
+
+	}
 
 }

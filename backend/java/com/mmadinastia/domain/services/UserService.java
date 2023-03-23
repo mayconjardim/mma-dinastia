@@ -1,7 +1,10 @@
 package com.mmadinastia.domain.services;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import com.mmadinastia.api.assembler.UserDtoDisassembler;
 import com.mmadinastia.api.dto.RoleDTO;
 import com.mmadinastia.api.dto.UserDTO;
 import com.mmadinastia.api.dto.UserInsertDTO;
+import com.mmadinastia.api.dto.UserUpdateDTO;
 import com.mmadinastia.domain.entities.Role;
 import com.mmadinastia.domain.entities.User;
 import com.mmadinastia.domain.repositories.RoleRepository;
@@ -52,6 +56,7 @@ public class UserService {
 	public UserDTO insert(UserInsertDTO dto) {
 
 		User entity = new User();
+
 		disassembler.copyToDomainObject(dto, entity);
 
 		entity.getRoles().clear();
@@ -63,7 +68,37 @@ public class UserService {
 		entity = userRepository.save(entity);
 
 		return assembler.toDTO(entity);
+	}
 
+	// if(!dto.getPassword().equals(entity.getPassword())) {
+	// dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+	// }
+
+	@Transactional
+	public UserDTO update(Long id, UserUpdateDTO dto) {
+		try {
+			User entity = findOrFail(id);
+			entity.getRoles().clear();
+
+			disassembler.copyToDomainObjectUpdate(dto, entity);
+
+			return assembler.toDTO(userRepository.save(entity));
+		}
+
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id não encontrado " + id);
+		}
+
+	}
+
+	public void delete(Long id) {
+		try {
+			userRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id não encontrado " + id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Violação de integridade!");
+		}
 	}
 
 	public User findOrFail(Long id) {
