@@ -31,11 +31,11 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
 		User email = userRepository.findByEmail(dto.getEmail());
 		
 		if (username != null) {
-			list.add(new FieldMessage("username", "Username já exite"));
+			list.add(new FieldMessage("username", "Username já exite!"));
 		}
 		
 		if (email != null) {
-			list.add(new FieldMessage("email", "Email já exite"));
+			list.add(new FieldMessage("email", "Email já exite!"));
 		}
 		
 		for (FieldMessage e : list) {

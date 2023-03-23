@@ -8,11 +8,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.mmadinastia.domain.services.validation.UserUpdateValid;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@UserUpdateValid
 public class UserUpdateDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
