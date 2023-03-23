@@ -1,7 +1,5 @@
 package com.mmadinastia.domain.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,24 +23,21 @@ public class UserService {
 
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
+
 		return assembler.toCollectionDTO(userRepository.findAll(pageable));
 	}
-	
+
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
-	
-		Optional<User> obj = userRepository.findById(id);
-		
-		User entity = obj.orElseThrow(()-> new Exception("Entity not found"));
-		
-		return new UserDTO(entity);
+
+		User user = findOrFail(id);
+
+		return assembler.toDTO(user);
 	}
-	
-	
-    public User findOrFail(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        String.format("Usuário não encontrado: ", id)));
-    }
+
+	public User findOrFail(Long id) {
+		return userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(String.format("Usuário não encontrado: ", id)));
+	}
 
 }
