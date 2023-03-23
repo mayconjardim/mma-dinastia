@@ -1,6 +1,7 @@
 package com.mmadinastia.domain.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import com.mmadinastia.domain.entities.Role;
 import com.mmadinastia.domain.entities.User;
 import com.mmadinastia.domain.repositories.RoleRepository;
 import com.mmadinastia.domain.repositories.UserRepository;
+import com.mmadinastia.domain.services.exceptions.DatabaseException;
 import com.mmadinastia.domain.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -25,7 +27,7 @@ public class UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private UserDtoAssembler assembler;
 
@@ -53,11 +55,11 @@ public class UserService {
 		disassembler.copyToDomainObject(dto, entity);
 
 		entity.getRoles().clear();
-		for (RoleDTO roleDTO: dto.getRoles()) {
+		for (RoleDTO roleDTO : dto.getRoles()) {
 			Role role = roleRepository.getReferenceById(roleDTO.getId());
 			entity.getRoles().add(role);
 		}
-		
+
 		entity = userRepository.save(entity);
 
 		return assembler.toDTO(entity);
