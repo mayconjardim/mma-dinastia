@@ -1,15 +1,21 @@
 package com.mmadinastia.api.resources;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mmadinastia.api.dto.UserDTO;
+import com.mmadinastia.api.dto.UserInsertDTO;
 import com.mmadinastia.domain.services.UserService;
 
 @RestController
@@ -32,6 +38,15 @@ public class UserResource {
 		UserDTO dto = userService.findById(id);
 		return ResponseEntity.ok().body(dto);
 		
+	}
+	
+	@PostMapping
+	public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO dto){
+		UserDTO newDTO = userService.insert(dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newDTO.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(newDTO);
 	}
 	
 	
