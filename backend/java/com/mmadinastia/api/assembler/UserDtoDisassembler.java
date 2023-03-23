@@ -18,7 +18,9 @@ public class UserDtoDisassembler {
     }
 
     public void copyToDomainObject(UserInsertDTO userInsertDto, User user) {
-        modelMapper.map(userInsertDto, user);
+    	
+    	modelMapper.map(userInsertDto, user);
+        
     }
 
 }
