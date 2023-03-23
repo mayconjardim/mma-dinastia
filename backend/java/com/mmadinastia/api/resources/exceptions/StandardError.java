@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class StandardError implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	private Instant timestamp;
