@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,9 @@ public class UserService implements UserDetailsService {
 	private RoleRepository roleRepository;
 
 	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
 	private UserDtoAssembler assembler;
 
 	@Autowired
@@ -60,6 +64,7 @@ public class UserService implements UserDetailsService {
 
 		User entity = new User();
 
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		disassembler.copyToDomainObject(dto, entity);
 
 		entity.getRoles().clear();
@@ -73,15 +78,15 @@ public class UserService implements UserDetailsService {
 		return assembler.toDTO(entity);
 	}
 
-	// if(!dto.getPassword().equals(entity.getPassword())) {
-	// dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-	// }
-
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = findOrFail(id);
 			entity.getRoles().clear();
+
+			if (!dto.getPassword().equals(entity.getPassword())) {
+				dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+			}
 
 			disassembler.copyToDomainObjectUpdate(dto, entity);
 
@@ -112,11 +117,11 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
-		
+
 		if (user == null) {
 			throw new UsernameNotFoundException("Usuário não encontrado");
 		}
-		
+
 		return user;
 	}
 
