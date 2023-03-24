@@ -1,4 +1,4 @@
-package com.mmadinastia.config;
+package com.mmadinastia.core.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

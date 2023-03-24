@@ -1,4 +1,4 @@
-package com.mmadinastia.config;
+package com.mmadinastia.core.security;
 
 import java.util.Arrays;
 
@@ -33,11 +33,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
 	private Environment env;
 
-	private static final String[] PUBLIC = {"/oauth/token","/h2-console/**"};
+	private static final String[] PUBLIC = {"/oauth/token","/h2-console/**", "/users/**"};
 
 	private static final String[] MANAGER_OR_ADMIN = {"/products/**", "/categories/**"}; 
 	
-	private static final String[] ADMIN = { "/users/**" };
+	private static final String[] ADMIN = {  };
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

@@ -1,4 +1,4 @@
-package com.mmadinastia.components;
+package com.mmadinastia.core.components;
 
 import java.util.HashMap;
 import java.util.Map;

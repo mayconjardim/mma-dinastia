@@ -1,4 +1,4 @@
-package com.mmadinastia.config;
+package com.mmadinastia.core.security;
 
 import java.util.Arrays;
 
@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import com.mmadinastia.components.JwtTokenEnhancer;
+import com.mmadinastia.core.components.JwtTokenEnhancer;
 
 @Configuration
 @EnableAuthorizationServer

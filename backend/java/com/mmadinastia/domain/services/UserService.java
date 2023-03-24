@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mmadinastia.api.assembler.UserDtoAssembler;
 import com.mmadinastia.api.assembler.UserDtoDisassembler;
-import com.mmadinastia.api.dto.RoleDTO;
 import com.mmadinastia.api.dto.UserDTO;
 import com.mmadinastia.api.dto.UserInsertDTO;
 import com.mmadinastia.api.dto.UserUpdateDTO;
@@ -64,14 +63,13 @@ public class UserService implements UserDetailsService {
 
 		User entity = new User();
 
-		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		disassembler.copyToDomainObject(dto, entity);
 
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+
 		entity.getRoles().clear();
-		for (RoleDTO roleDTO : dto.getRoles()) {
-			Role role = roleRepository.getReferenceById(roleDTO.getId());
-			entity.getRoles().add(role);
-		}
+		Role role = roleRepository.getReferenceById(2L);
+		entity.getRoles().add(role);
 
 		entity = userRepository.save(entity);
 
