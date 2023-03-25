@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class UserResource {
 	private UserService userService;
 
 	@GetMapping
+	@Secured({})
 	public ResponseEntity<Page<UserDTO>> findAllPageable(Pageable pageable) {
 
 		Page<UserDTO> page = userService.findAllPaged(pageable);
@@ -39,6 +41,7 @@ public class UserResource {
 	}
 
 	@GetMapping(value = "/{id}")
+	@Secured({})
 	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
 
 		UserDTO dto = userService.findById(id);
@@ -47,6 +50,7 @@ public class UserResource {
 	}
 
 	@PostMapping
+	@Secured({})
 	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto) {
 		UserDTO newDTO = userService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDTO.getId()).toUri();
@@ -55,6 +59,7 @@ public class UserResource {
 	}
 
 	@PutMapping(value = "/{id}")
+	@Secured(value = { "ROLE_MANAGER", "ROLE_ADMIN" })
 	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO dto) {
 
 		UserDTO newDto = userService.update(id, dto);
@@ -63,6 +68,7 @@ public class UserResource {
 	}
 
 	@DeleteMapping(value = "/{id}")
+	@Secured(value = "ROLE_ADMIN")
 	public ResponseEntity<UserDTO> delete(@PathVariable Long id) {
 		userService.delete(id);
 		return ResponseEntity.noContent().build();
