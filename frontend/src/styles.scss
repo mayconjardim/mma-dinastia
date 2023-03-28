@@ -1,3 +1,15 @@
+@import url(./assets/config-scss/variables.scss);
+@import url(./assets/config-scss/reset.scss);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  font-family: "Noto Sans", sans-serif;
+}
+
+main {
+  margin: 0 auto;
+  box-sizing: border-box;
+}
