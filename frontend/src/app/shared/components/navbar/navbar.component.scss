@@ -1,0 +1,20 @@
+.navbar {
+  background: var(--primary-color);
+  color: var(--branco);
+  text-transform: uppercase;
+  font-weight: 800;
+
+  a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+    text-underline-offset: 0.5rem;
+  }
+
+  .logo {
+    margin-right: 0.5rem;
+  }
+
+  .p-2 {
+    background: var(--primary-color);
+  }
+}
