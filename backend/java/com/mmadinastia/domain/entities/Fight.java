@@ -30,6 +30,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@SuppressWarnings("unused")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Setter
 @Getter
@@ -2112,6 +2113,7 @@ public class Fight implements Serializable {
 		final double SLAM_OUT_CUT = 1.25;
 		double at, def, damageDone;
 		int attackLevel, injuryType;
+		
 		String tempMoveName = "";
 
 		attackLevel = attackLevel(act, pas, (act.getTakedowns() + act.getStrength()) / 2, pas.getTakedownsDef());
@@ -5747,31 +5749,29 @@ public class Fight implements Serializable {
 		}
 
 	}
-
+	
 	public void damageFighter(Fighter act, Fighter pas, double damageDone) {
 
-		if (damageDone < 0) {
-			damageDone = 1;
-		}
+	    if (damageDone < 0) {
+	        damageDone = 1;
+	    }
 
-		// checkMoreDamageOneHit(act, pas, DamageDone);
+	    //checkMoreDamageOneHit(act, pas, damageDone);
 
-		// Increase stats
-		// Bout.UpdateDamageDone(fighterNumber(act), DamageDone, InTheClinch,
-		// act.OnTheGround);
-		// Bout.UpdateDamageReceived(fighterNumber(pas), DamageDone, InTheClinch,
-		// pas.OnTheGround);
+	    // Increase stats
+	   // bout.updateDamageDone(getFighterNumber(act), damageDone, inTheClinch, act.isOnTheGround());
+	    //bout.updateDamageReceived(getFighterNumber(pas), damageDone, inTheClinch, pas.isOnTheGround());
 
-		damageDone = damageDone;
-		pas.setCurrentHP(pas.getCurrentHP() - damageDone / Sim.DAMAGECUT);
+	    pas.setCurrentHP(pas.getCurrentHP() - (damageDone / Sim.DAMAGECUT));
 
-		if (pas.getCurrentHP() < 0) {
-			pas.setCurrentHP(1.0);
-		}
+	    if (pas.getCurrentHP() < 0) {
+	        pas.setCurrentHP(1.0);
+	    }
 
-		// Increase points
-		act.increasePoints(currentRound, (int) (damageDone / Sim.DAMAGECUTPOINTS), true);
+	    // Increase points
+	    act.increasePoints(getCurrentRound(), (int) (damageDone / Sim.DAMAGECUTPOINTS), true);
 	}
+
 
 	public void checkWeightDifference(Fighter act, Fighter pas) {
 		final double WEIGHT_MOD = 1.5;
