@@ -3,12 +3,10 @@ package com.mmadinastia.api.dto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Setter
 @Getter
 @NoArgsConstructor

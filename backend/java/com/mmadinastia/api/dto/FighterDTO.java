@@ -6,12 +6,11 @@ import java.util.List;
 
 import com.mmadinastia.domain.enums.WeightClass;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -53,7 +52,7 @@ public class FighterDTO implements Serializable {
 	private Double toughness;
 
 	private List<RecordDTO> records = new ArrayList<>();
-
+	
 	public Double getOverall() {
 		return punching + kicking + clinchStriking + clinchGrappling + takedowns +
 
