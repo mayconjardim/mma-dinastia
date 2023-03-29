@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mmadinastia.api.assembler.FighterDtoAssembler;
-import com.mmadinastia.api.assembler.FighterDtoDisassembler;
 import com.mmadinastia.api.dto.FighterDTO;
 import com.mmadinastia.domain.entities.Fighter;
-import com.mmadinastia.domain.entities.User;
 import com.mmadinastia.domain.repositories.FighterRepository;
 import com.mmadinastia.domain.services.exceptions.ResourceNotFoundException;
 
@@ -23,9 +21,6 @@ public class FighterService {
 	@Autowired
 	private FighterDtoAssembler assembler;
 
-	@Autowired
-	private FighterDtoDisassembler disassembler;
-
 	@Transactional(readOnly = true)
 	public Page<FighterDTO> findAllPaged(Pageable pageable) {
 
@@ -35,9 +30,9 @@ public class FighterService {
 	@Transactional(readOnly = true)
 	public FighterDTO findById(Long id) {
 
-		User user = findOrFail(id);
+		Fighter fighter = findOrFail(id);
 
-		return assembler.toDTO(user);
+		return assembler.toDTO(fighter);
 	}
 
 	public Fighter findOrFail(Long id) {
