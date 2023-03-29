@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RecordDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long id;
 	private String result;
 	private String opponentName;
@@ -22,5 +22,5 @@ public class RecordDTO implements Serializable {
 	private Long eventId;
 	private LocalDateTime date;
 	private String description;
-	
+
 }
