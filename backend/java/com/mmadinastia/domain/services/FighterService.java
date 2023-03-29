@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mmadinastia.api.assembler.FighterDtoAssembler;
 import com.mmadinastia.api.dto.FighterDTO;
+import com.mmadinastia.api.dto.FighterStratsDTO;
 import com.mmadinastia.domain.entities.Fighter;
 import com.mmadinastia.domain.repositories.FighterRepository;
 import com.mmadinastia.domain.services.exceptions.ResourceNotFoundException;
@@ -34,6 +35,14 @@ public class FighterService {
 
 		return assembler.toDTO(fighter);
 	}
+	
+	@Transactional(readOnly = true)
+	public FighterStratsDTO findByStratsById(Long id) {
+
+		Fighter fighter = findOrFail(id);
+
+		return assembler.toStratsDTO(fighter);
+	}
 
 	@Transactional
 	public FighterDTO insert(FighterDTO dto) {
@@ -47,9 +56,21 @@ public class FighterService {
 		return assembler.toDTO(entity);
 	}
 
+	@Transactional
+	public FighterDTO update(Long id, FighterStratsDTO dto) {
+
+			Fighter entity = findOrFail(id);
+
+			copyStrats(dto, entity);
+
+			entity = fighterRepository.save(entity);
+			
+			return new FighterDTO(entity);
+	}
+
 	public Fighter findOrFail(Long id) {
 		return fighterRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException(String.format("Usuário não encontrado: ", id)));
+				.orElseThrow(() -> new ResourceNotFoundException(String.format("Lutador não encontrado: ", id)));
 	}
 
 	public void copyDtoToEntity(FighterDTO fighterDto, Fighter entity) {
@@ -77,6 +98,33 @@ public class FighterService {
 		entity.setConditioning(fighterDto.getConditioning());
 		entity.setKoResistance(fighterDto.getKoResistance());
 		entity.setToughness(fighterDto.getToughness());
+	}
+
+	private void copyStrats(FighterStratsDTO dto, Fighter entity) {
+
+		entity.setStratPunching(dto.getStratPunching());
+		entity.setStratKicking(dto.getStratKicking());
+		entity.setStratClinching(dto.getStratClinching());
+		entity.setStratTakedowns(dto.getStratTakedowns());
+
+		entity.setStratDirtyBoxing(dto.getStratDirtyBoxing());
+		entity.setStratThaiClinch(dto.getStratThaiClinch());
+		entity.setStratClinchTakedowns(dto.getStratClinchTakedowns());
+		entity.setStratAvoidClinch(dto.getStratAvoidClinch());
+
+		entity.setStratGNP(dto.getStratGNP());
+		entity.setStratSub(dto.getStratSub());
+		entity.setStratPositioning(dto.getStratPositioning());
+		entity.setStratLNP(dto.getStratLNP());
+		entity.setStratStandUp(dto.getStratStandUp());
+
+		entity.setFancyPunches(dto.getFancyPunches());
+		entity.setFancyKicks(dto.getFancyKicks());
+		entity.setFancySubmissions(dto.getFancySubmissions());
+		entity.setTacticalStyle(dto.getTacticalStyle());
+		entity.setDirtyFighting(dto.getDirtyFighting());
+		entity.setFightingStyle(dto.getFightingStyle());
+
 	}
 
 }

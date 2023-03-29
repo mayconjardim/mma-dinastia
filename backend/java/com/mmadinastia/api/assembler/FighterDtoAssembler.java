@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import com.mmadinastia.api.dto.FighterDTO;
+import com.mmadinastia.api.dto.FighterStratsDTO;
 import com.mmadinastia.domain.entities.Fighter;
 
 @Component
@@ -21,6 +22,11 @@ public class FighterDtoAssembler {
 		return modelMapper.map(fighter, FighterDTO.class);
 	}
 
+	public FighterStratsDTO toStratsDTO(Fighter fighter) {
+		return modelMapper.map(fighter, FighterStratsDTO.class);
+	}
+
+	
 	public List<FighterDTO> toCollectionDTO(List<Fighter> fighters) {
 		return fighters.stream().map(fighter -> toDTO(fighter)).collect(Collectors.toList());
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mmadinastia.domain.entities.Fighter;
 import com.mmadinastia.domain.enums.WeightClass;
 
 import lombok.Getter;
@@ -52,6 +53,38 @@ public class FighterDTO implements Serializable {
 	private Double toughness;
 
 	private List<RecordDTO> records = new ArrayList<>();
+	
+	public FighterDTO(Fighter entity) {
+		this.id = entity.getId();
+		this.firstName = entity.getFirstName();
+		this.lastName = entity.getLastName();
+		this.nickname = entity.getNickname();
+		this.age = entity.getAge();
+		this.win = entity.getWin();
+		this.loss = entity.getLoss();
+		this.draw = entity.getDraw();
+		this.weightClass = entity.getWeightClass();
+		this.punching = entity.getPunching();
+		this.kicking = entity.getKicking();
+		this.clinchStriking = entity.getClinchStriking();
+		this.clinchGrappling = entity.getClinchGrappling();
+		this.takedowns = entity.getTakedowns();
+		this.gnp = entity.getGnp();
+		this.submission = entity.getSubmission();
+		this.groundGame = entity.getGroundGame();
+		this.dodging = entity.getDodging();
+		this.subDefense = entity.getSubDefense();
+		this.takedownsDef = entity.getTakedownsDef();
+		this.aggressiveness = entity.getAggressiveness();
+		this.control = entity.getControl();
+		this.motivation = entity.getMotivation();
+		this.strength = entity.getStrength();
+		this.agility = entity.getAgility();
+		this.conditioning = entity.getConditioning();
+		this.koResistance = entity.getKoResistance();
+		this.toughness = entity.getToughness();
+		entity.getRecords().forEach(record -> this.records.add(new RecordDTO(record)));
+	}
 	
 	public Double getOverall() {
 		return punching + kicking + clinchStriking + clinchGrappling + takedowns +
