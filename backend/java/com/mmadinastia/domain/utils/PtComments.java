@@ -1,4 +1,4 @@
-package com.mmadinastia.fight.utils;
+package com.mmadinastia.domain.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

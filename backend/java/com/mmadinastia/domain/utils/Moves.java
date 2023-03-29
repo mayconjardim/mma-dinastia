@@ -1,4 +1,4 @@
-package com.mmadinastia.fight.utils;
+package com.mmadinastia.domain.utils;
 
 public abstract class Moves {
 

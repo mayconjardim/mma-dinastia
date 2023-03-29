@@ -1,4 +1,4 @@
-package com.mmadinastia.fight.enums;
+package com.mmadinastia.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

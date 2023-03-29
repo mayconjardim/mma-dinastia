@@ -1,8 +1,8 @@
-package com.mmadinastia.fight.utils;
+package com.mmadinastia.domain.utils;
 
 public abstract class Sim {
 
-	// Arbitro
+	//Arbitro
 	public static final int refTendencyToStandUp = 2;
 	public static final int refTendencyToBreakClinch = 3;
 	public static final int refTKOAwareness = 4;
@@ -10,6 +10,9 @@ public abstract class Sim {
 	public static final int refRuleStrict = 4;
 	public static final int refProfessionalism = 6;
 
+
+	
+	
 	public static final int BIGRANDOM = 20;
 	public static final int SMALLRANDOM = 10;
 	public static final int DAMAGECUT = 25;
@@ -68,7 +71,7 @@ public abstract class Sim {
 
 	public static final int SMALLINJURIES = 50;
 	public static final int BIGINJURIES = 175;
-	public static final int INJURYCUT = 22; // FICAR DE OLHO
+	public static final int INJURYCUT = 22; //FICAR DE OLHO
 	public static final int SMALLINJURYORCUTTRUE = 1;
 	public static final int BIGINJURYORCUTTRUE = 2;
 	public static final int INJURYORCUTFALSE = 0;
@@ -385,7 +388,7 @@ public abstract class Sim {
 	public static String RIGHT = "direita";
 
 	public static boolean oldUMSTime = false;
-
+	
 	public static int setLimits(int actual, int max, int min) {
 		if (actual > max) {
 			actual = max;
