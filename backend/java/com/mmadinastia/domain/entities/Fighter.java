@@ -10,19 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.mmadinastia.domain.enums.WeightClass;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Setter
-@Getter
-@NoArgsConstructor
 @Entity
+@Table(name = "tb_fighter")
 public class Fighter implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -185,63 +183,7 @@ public class Fighter implements Serializable {
 	private int[] roundAggPoints = new int[10];
 	private int[] roundTechPoints = new int[10];
 	private int[] pointsPenalization = new int[10];
-
-	public Fighter(Long id, String firstName, String lastName, String nickname, Integer age, WeightClass weightClass,
-			Double punching, Double kicking, Double clinchStriking, Double clinchGrappling, Double takedowns,
-			Double gnp, Double submission, Double groundGame, Double dodging, Double subDefense, Double takedownsDef,
-			Double aggressiveness, Double control, Double motivation, Double strength, Double agility,
-			Double conditioning, Double koResistance, Double toughness) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.nickname = nickname;
-		this.age = age;
-		this.weightClass = weightClass;
-		this.punching = punching;
-		this.kicking = kicking;
-		this.clinchStriking = clinchStriking;
-		this.clinchGrappling = clinchGrappling;
-		this.takedowns = takedowns;
-		this.gnp = gnp;
-		this.submission = submission;
-		this.groundGame = groundGame;
-		this.dodging = dodging;
-		this.subDefense = subDefense;
-		this.takedownsDef = takedownsDef;
-		this.aggressiveness = aggressiveness;
-		this.control = control;
-		this.motivation = motivation;
-		this.strength = strength;
-		this.agility = agility;
-		this.conditioning = conditioning;
-		this.koResistance = koResistance;
-		this.toughness = toughness;
-		// Strats Geral
-		stratPunching = 50;
-		stratKicking = 30;
-		stratClinching = 20;
-		stratTakedowns = 0;
-		// Strats Clinch
-		stratDirtyBoxing = 25;
-		stratThaiClinch = 25;
-		stratClinchTakedowns = 25;
-		stratAvoidClinch = 25;
-		// Strats Chão
-		stratGNP = 20;
-		stratSub = 20;
-		stratPositioning = 20;
-		stratLNP = 20;
-		stratStandUp = 20;
-		// Estilos
-		fancyPunches = 0;
-		fightingStyle = 2;
-		tacticalStyle = 2;
-		fancyKicks = 0;
-		fancySubmissions = 0;
-		dirtyFighting = 0;
-	}
-
+	
 	// Metodos de luta
 
 	public String getName() {

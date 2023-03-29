@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.mmadinastia.domain.enums.WeightClass;
 import com.mmadinastia.domain.utils.JudgePerRound;
@@ -36,6 +37,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table(name = "tb_fight")
 public class Fight implements Serializable {
 	private static final long serialVersionUID = 1L;
 

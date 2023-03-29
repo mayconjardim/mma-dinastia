@@ -53,7 +53,8 @@ public class UserResource {
 	@Secured({})
 	public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto) {
 		UserDTO newDTO = userService.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDTO.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newDTO.getId()).toUri();
 
 		return ResponseEntity.created(uri).body(newDTO);
 	}
