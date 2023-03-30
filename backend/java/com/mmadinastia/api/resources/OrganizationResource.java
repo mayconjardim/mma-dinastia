@@ -3,6 +3,8 @@ package com.mmadinastia.api.resources;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,15 @@ public class OrganizationResource {
 	@Autowired
 	private OrganizationService organizationService;
 
+	@GetMapping
+	@Secured({})
+	public ResponseEntity<Page<OrganizationDTO>> findAllPageable(Pageable pageable) {
+
+		Page<OrganizationDTO> page = organizationService.findAllPaged(pageable);
+
+		return ResponseEntity.ok().body(page);
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<OrganizationDTO> findById(@PathVariable Long id) {
 		OrganizationDTO dto = organizationService.findById(id);
