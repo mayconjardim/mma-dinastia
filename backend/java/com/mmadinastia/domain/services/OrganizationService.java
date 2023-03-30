@@ -1,5 +1,7 @@
 package com.mmadinastia.domain.services;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -46,12 +48,32 @@ public class OrganizationService {
 	public OrganizationDTO insert(OrganizationDTO dto) {
 
 		Organization entity = new Organization();
-
+	
+		
 		disassembler.copyToDomainObject(dto, entity);
 
 		entity = organizationRepository.save(entity);
 
 		return assembler.toDTO(entity);
+	}
+	
+	@Transactional
+	public OrganizationDTO update(Long id, OrganizationDTO dto) {
+		try {
+		
+			Organization entity = findOrFail(id);
+			dto.setId(entity.getId());
+			dto.setRegisterDate(entity.getRegisterDate());
+			
+			disassembler.copyToDomainObject(dto, entity);
+
+			return assembler.toDTO(organizationRepository.save(entity));
+		}
+
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id não encontrado " + id);
+		}
+
 	}
 
 	public void delete(Long id) {
@@ -64,7 +86,6 @@ public class OrganizationService {
 		}
 	}
 
-	
 	public Organization findOrFail(Long id) {
 		return organizationRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(String.format("Organização não encontrada: ", id)));
