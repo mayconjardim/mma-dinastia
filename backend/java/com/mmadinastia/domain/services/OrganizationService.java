@@ -1,7 +1,5 @@
 package com.mmadinastia.domain.services;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,8 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmadinastia.api.assembler.OrganizationDtoAssembler;
-import com.mmadinastia.api.assembler.OrganizationDtoDisassembler;
 import com.mmadinastia.api.dto.OrganizationDTO;
 import com.mmadinastia.domain.entities.Organization;
 import com.mmadinastia.domain.repositories.OrganizationRepository;
@@ -24,56 +20,43 @@ public class OrganizationService {
 	@Autowired
 	private OrganizationRepository organizationRepository;
 
-	@Autowired
-	private OrganizationDtoAssembler assembler;
-
-	@Autowired
-	private OrganizationDtoDisassembler disassembler;
-
 	@Transactional(readOnly = true)
 	public Page<OrganizationDTO> findAllPaged(Pageable pageable) {
 
-		return assembler.toCollectionDTO(organizationRepository.findAll(pageable));
+		Page<Organization> page = organizationRepository.findAll(pageable);
+
+		return page.map(o -> new OrganizationDTO(o));
 	}
 
 	@Transactional(readOnly = true)
 	public OrganizationDTO findById(Long id) {
 
-		Organization entity = findOrFail(id);
+		Organization org = findOrFail(id);
 
-		return assembler.toDTO(entity);
+		return new OrganizationDTO(org);
 	}
 
 	@Transactional
 	public OrganizationDTO insert(OrganizationDTO dto) {
 
 		Organization entity = new Organization();
-	
-		
-		disassembler.copyToDomainObject(dto, entity);
+
+		copyDtoToEntity(dto, entity);
 
 		entity = organizationRepository.save(entity);
 
-		return assembler.toDTO(entity);
+		return new OrganizationDTO(entity);
 	}
-	
+
 	@Transactional
 	public OrganizationDTO update(Long id, OrganizationDTO dto) {
-		try {
+	
+		Organization entity = findOrFail(id);
+		copyDtoToEntity(dto, entity);
+
+		entity = organizationRepository.save(entity);
 		
-			Organization entity = findOrFail(id);
-			dto.setId(entity.getId());
-			dto.setRegisterDate(entity.getRegisterDate());
-			
-			disassembler.copyToDomainObject(dto, entity);
-
-			return assembler.toDTO(organizationRepository.save(entity));
-		}
-
-		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id não encontrado " + id);
-		}
-
+		return new OrganizationDTO(entity);
 	}
 
 	public void delete(Long id) {
@@ -89,6 +72,14 @@ public class OrganizationService {
 	public Organization findOrFail(Long id) {
 		return organizationRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(String.format("Organização não encontrada: ", id)));
+	}
+
+	private void copyDtoToEntity(OrganizationDTO dto, Organization entity) {
+
+		entity.setInitials(dto.getInitials());
+		entity.setName(dto.getName());
+		entity.setRegisterDate(dto.getRegisterDate());
+
 	}
 
 }

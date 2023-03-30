@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmadinastia.api.assembler.FightDtoAssembler;
 import com.mmadinastia.api.dto.FightDTO;
 import com.mmadinastia.domain.entities.Fight;
 import com.mmadinastia.domain.entities.Fighter;
@@ -26,13 +25,12 @@ public class FightService {
 	@Autowired
 	private FighterRepository fighterRepository;
 
-	@Autowired
-	private FightDtoAssembler assembler;
-
 	@Transactional(readOnly = true)
 	public Page<FightDTO> findAllPaged(Pageable pageable) {
 
-		return assembler.toCollectionDTO(fightRepository.findAll(pageable));
+		Page<Fight> page = fightRepository.findAll(pageable);
+
+		return page.map(f -> new FightDTO(f));
 	}
 
 	@Transactional(readOnly = true)
@@ -40,7 +38,7 @@ public class FightService {
 
 		Fight fight = findOrFail(id);
 
-		return assembler.toDTO(fight);
+		return new FightDTO(fight);
 	}
 
 	@Transactional
@@ -52,7 +50,7 @@ public class FightService {
 
 		entity = fightRepository.save(entity);
 
-		return assembler.toDTO(entity);
+		return new FightDTO(entity);
 	}
 	
 	@Transactional
