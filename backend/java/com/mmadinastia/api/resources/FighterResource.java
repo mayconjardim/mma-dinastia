@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mmadinastia.api.dto.FighterDTO;
 import com.mmadinastia.api.dto.FighterStratsDTO;
-import com.mmadinastia.api.dto.UserDTO;
 import com.mmadinastia.domain.services.FighterService;
 
 @RestController

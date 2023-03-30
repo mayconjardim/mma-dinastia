@@ -5,6 +5,7 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,12 +38,19 @@ public class FightResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
-	
+
 	@PutMapping("/{id}/sim")
 	public ResponseEntity<FightDTO> update(@PathVariable Long id) {
 		FightDTO dto = fightService.findById(id);
 		fightService.simuleFight(id);
 		return ResponseEntity.ok().body(dto);
+	}
+
+	@DeleteMapping(value = "/{id}")
+	@Secured(value = "ROLE_ADMIN")
+	public ResponseEntity<FightDTO> delete(@PathVariable Long id) {
+		fightService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
