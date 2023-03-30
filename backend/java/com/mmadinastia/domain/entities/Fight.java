@@ -66,7 +66,7 @@ public class Fight implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "fight_pbp", joinColumns = @JoinColumn(name = "fight_id"))
 	@Lob
-	@Fetch(FetchMode.JOIN) 
+	@Fetch(FetchMode.JOIN)
 	private List<String> pbp = new ArrayList<>();
 
 	/// Atributos de luta
@@ -123,7 +123,6 @@ public class Fight implements Serializable {
 	private boolean crowdBoo = true;
 	private Integer fightSeconds = 0;
 
-	
 	public Fight(Long id, String eventName, WeightClass WeightClass, Integer numberRounds, Boolean titleBout,
 			Fighter fighter1, Fighter fighter2, Boolean generatePBP, Boolean happened) {
 		super();
@@ -183,8 +182,8 @@ public class Fight implements Serializable {
 	public void fightController() {
 		for (currentRound = 1; currentRound <= numberRounds && !boutFinished; currentRound++) {
 
-			//statistics[0] = new Statistics();
-			//statistics[1] = new Statistics();
+			// statistics[0] = new Statistics();
+			// statistics[1] = new Statistics();
 
 			fighter1.setOnTheGround(false);
 			fighter2.setOnTheGround(false);
@@ -217,7 +216,7 @@ public class Fight implements Serializable {
 				boutFinished = true;
 				setPbp("    ");
 				setPbp(PtComments.misc.get(Sim.GO_TO_THE_JUDGES));
-				
+
 			}
 		}
 
@@ -2122,7 +2121,7 @@ public class Fight implements Serializable {
 		final double SLAM_OUT_CUT = 1.25;
 		double at, def, damageDone;
 		int attackLevel, injuryType;
-		
+
 		String tempMoveName = "";
 
 		attackLevel = attackLevel(act, pas, (act.getTakedowns() + act.getStrength()) / 2, pas.getTakedownsDef());
@@ -2136,7 +2135,8 @@ public class Fight implements Serializable {
 		hitLocation = extractHitLocation(fullComment);
 
 		// Modifying statistics
-		//statistics[fighterNumber(act)].takedownAttempts = extractHitsLaunched(fullComment);
+		// statistics[fighterNumber(act)].takedownAttempts =
+		// extractHitsLaunched(fullComment);
 
 		// Attacking value
 		at = fixedRandomInt(act.getStrength()) + act.getAttackBonus();
@@ -2218,7 +2218,8 @@ public class Fight implements Serializable {
 			// statistics.get(fighterNumber(act)].TakedownsAchieved =
 			// ExtractHitsLanded(FullComment);
 
-			//statistics[fighterNumber(act)].takedownsAchieved = extractHitsLanded(fullComment);
+			// statistics[fighterNumber(act)].takedownsAchieved =
+			// extractHitsLanded(fullComment);
 
 			return true;
 
@@ -5758,29 +5759,30 @@ public class Fight implements Serializable {
 		}
 
 	}
-	
+
 	public void damageFighter(Fighter act, Fighter pas, double damageDone) {
 
-	    if (damageDone < 0) {
-	        damageDone = 1;
-	    }
+		if (damageDone < 0) {
+			damageDone = 1;
+		}
 
-	    //checkMoreDamageOneHit(act, pas, damageDone);
+		// checkMoreDamageOneHit(act, pas, damageDone);
 
-	    // Increase stats
-	   // bout.updateDamageDone(getFighterNumber(act), damageDone, inTheClinch, act.isOnTheGround());
-	    //bout.updateDamageReceived(getFighterNumber(pas), damageDone, inTheClinch, pas.isOnTheGround());
+		// Increase stats
+		// bout.updateDamageDone(getFighterNumber(act), damageDone, inTheClinch,
+		// act.isOnTheGround());
+		// bout.updateDamageReceived(getFighterNumber(pas), damageDone, inTheClinch,
+		// pas.isOnTheGround());
 
-	    pas.setCurrentHP(pas.getCurrentHP() - (damageDone / Sim.DAMAGECUT));
+		pas.setCurrentHP(pas.getCurrentHP() - (damageDone / Sim.DAMAGECUT));
 
-	    if (pas.getCurrentHP() < 0) {
-	        pas.setCurrentHP(1.0);
-	    }
+		if (pas.getCurrentHP() < 0) {
+			pas.setCurrentHP(1.0);
+		}
 
-	    // Increase points
-	    act.increasePoints(getCurrentRound(), (int) (damageDone / Sim.DAMAGECUTPOINTS), true);
+		// Increase points
+		act.increasePoints(getCurrentRound(), (int) (damageDone / Sim.DAMAGECUTPOINTS), true);
 	}
-
 
 	public void checkWeightDifference(Fighter act, Fighter pas) {
 		final double WEIGHT_MOD = 1.5;
@@ -6724,7 +6726,7 @@ public class Fight implements Serializable {
 			winningSentence = PtComments.winner.get(0);
 			fighterActiveOrPassive(winner).setWin(fighterActiveOrPassive(winner).getWin() + 1);
 			fighterActiveOrPassive(loser).setLoss((fighterActiveOrPassive(loser).getLoss() + 1));
-			
+
 		} else {
 			// Convenience for PtComments
 			winner = 0;
@@ -6734,19 +6736,16 @@ public class Fight implements Serializable {
 			fighterActiveOrPassive(loser).setDraw(fighterActiveOrPassive(loser).getDraw() + 1);
 		}
 
-		Record recWin = new Record("Vitória", fighterActiveOrPassive(loser).getName(),
-				eventName, id, LocalDateTime.now(), finishedType);
-		
-		
-		Record recLos = new Record("Derrota", fighterActiveOrPassive(winner).getName(), 
-				eventName, id, LocalDateTime.now(), finishedType);
-		
-		
-		
+		Record recWin = new Record("Vitória", fighterActiveOrPassive(loser).getName(), eventName, id,
+				LocalDateTime.now(), finishedType);
+
+		Record recLos = new Record("Derrota", fighterActiveOrPassive(winner).getName(), eventName, id,
+				LocalDateTime.now(), finishedType);
+
 		fighterActiveOrPassive(winner).getRecords().add(recWin);
-		
+
 		fighterActiveOrPassive(loser).getRecords().add(recLos);
-		
+
 		doComment(fighterActiveOrPassive(winner), fighterActiveOrPassive(loser), winningSentence);
 		makeUpsetComment(fighterActiveOrPassive(winner), fighterActiveOrPassive(loser));
 		// writeStatistics(fighter1);
@@ -7008,7 +7007,7 @@ public class Fight implements Serializable {
 		String holdSite = Sim.FENCE;
 
 		String timeAndRound = (roundTime(fightSeconds) + " Round " + numberRounds);
-		
+
 		String round = Integer.toString(currentRound);
 
 		String updated = comment.replace("%a1", act.getName())
@@ -7449,65 +7448,64 @@ public class Fight implements Serializable {
 	}
 
 	/*
-	public void updateStatistic(int nFighter, StatisticsTypes stat, int launched, int landed) {
-		switch (stat) {
-		case PUNCHES:
-			statistics[nFighter].setPunchesLaunched(statistics[nFighter].getPunchesLaunched() + launched);
-			statistics[nFighter].setPunchesLanded(statistics[nFighter].getPunchesLanded() + landed);
-			break;
-		case KICKS:
-			statistics[nFighter].setKicksLaunched(statistics[nFighter].getKicksLaunched() + launched);
-			statistics[nFighter].setKicksLanded(statistics[nFighter].getKicksLanded() + landed);
-			break;
-		case CLINCH:
-			statistics[nFighter].setClinchStrikesLaunched(statistics[nFighter].getClinchStrikesLaunched() + launched);
-			statistics[nFighter].setClinchStrikesLanded(statistics[nFighter].getClinchStrikesLanded() + landed);
-			break;
-		case GNP:
-			statistics[nFighter].setGroundAndPoundStrikesLaunched(
-					statistics[nFighter].getGroundAndPoundStrikesLaunched() + launched);
-			statistics[nFighter]
-					.setGroundAndPoundStrikesLanded(statistics[nFighter].getGroundAndPoundStrikesLanded() + landed);
-			break;
-		case SUBMISSIONS:
-			statistics[nFighter].setSubmissionAttempts(statistics[nFighter].getSubmissionAttempts() + launched);
-			statistics[nFighter].setSubmissionsAchieved(statistics[nFighter].getSubmissionsAchieved() + landed);
-			break;
-		case TAKEDOWNS:
-			statistics[nFighter].setTakedownAttempts(statistics[nFighter].getTakedownAttempts() + launched);
-			statistics[nFighter].setTakedownsAchieved(statistics[nFighter].getTakedownsAchieved() + landed);
-			break;
-		case GRAPPLING:
-			statistics[nFighter].setGrapplingAttempts(statistics[nFighter].getGrapplingAttempts() + launched);
-			statistics[nFighter].setGrapplingAchieved(statistics[nFighter].getGrapplingAchieved() + landed);
-			break;
-		default:
-			throw new IllegalArgumentException("Invalid statistic type: " + stat);
-		}
-	}
-
-	
-	public void writeStatistics(Fighter act) {
-		int nFighter = fighterNumber(act);
-		String newLine = System.getProperty("line.separator");
-
-		setPbp(newLine + PtComments.misc.get(Sim.STATISTICS) + ": " + act.getName());
-
-		setPbp(PtComments.misc.get(Sim.PUNCHES) + " "
-				+ statiticsLine(statistics[nFighter].punchesLaunched, statistics[nFighter].punchesLanded));
-		setPbp(PtComments.misc.get(Sim.KICKS) + " "
-				+ statiticsLine(statistics[nFighter].kicksLaunched, statistics[nFighter].kicksLanded));
-		setPbp(PtComments.misc.get(Sim.CLINCH_STRIKES) + " "
-				+ statiticsLine(statistics[nFighter].clinchStrikesLaunched, statistics[nFighter].clinchStrikesLanded));
-		setPbp(PtComments.misc.get(Sim.TAKEDOWNS) + " "
-				+ statiticsLine(statistics[nFighter].takedownAttempts, statistics[nFighter].takedownsAchieved));
-		setPbp(PtComments.misc.get(Sim.GNP_STRIKES) + " " + statiticsLine(
-				statistics[nFighter].groundAndPoundStrikesLaunched, statistics[nFighter].groundAndPoundStrikesLanded));
-		setPbp(PtComments.misc.get(Sim.SUBMISSIONS) + " "
-				+ statiticsLine(statistics[nFighter].submissionAttempts, statistics[nFighter].submissionsAchieved));
-		setPbp(PtComments.misc.get(Sim.GRAPPLING) + " "
-				+ statiticsLine(statistics[nFighter].grapplingAttempts, statistics[nFighter].grapplingAchieved));
-	}
+	 * public void updateStatistic(int nFighter, StatisticsTypes stat, int launched,
+	 * int landed) { switch (stat) { case PUNCHES:
+	 * statistics[nFighter].setPunchesLaunched(statistics[nFighter].
+	 * getPunchesLaunched() + launched);
+	 * statistics[nFighter].setPunchesLanded(statistics[nFighter].getPunchesLanded()
+	 * + landed); break; case KICKS:
+	 * statistics[nFighter].setKicksLaunched(statistics[nFighter].getKicksLaunched()
+	 * + launched);
+	 * statistics[nFighter].setKicksLanded(statistics[nFighter].getKicksLanded() +
+	 * landed); break; case CLINCH:
+	 * statistics[nFighter].setClinchStrikesLaunched(statistics[nFighter].
+	 * getClinchStrikesLaunched() + launched);
+	 * statistics[nFighter].setClinchStrikesLanded(statistics[nFighter].
+	 * getClinchStrikesLanded() + landed); break; case GNP:
+	 * statistics[nFighter].setGroundAndPoundStrikesLaunched(
+	 * statistics[nFighter].getGroundAndPoundStrikesLaunched() + launched);
+	 * statistics[nFighter] .setGroundAndPoundStrikesLanded(statistics[nFighter].
+	 * getGroundAndPoundStrikesLanded() + landed); break; case SUBMISSIONS:
+	 * statistics[nFighter].setSubmissionAttempts(statistics[nFighter].
+	 * getSubmissionAttempts() + launched);
+	 * statistics[nFighter].setSubmissionsAchieved(statistics[nFighter].
+	 * getSubmissionsAchieved() + landed); break; case TAKEDOWNS:
+	 * statistics[nFighter].setTakedownAttempts(statistics[nFighter].
+	 * getTakedownAttempts() + launched);
+	 * statistics[nFighter].setTakedownsAchieved(statistics[nFighter].
+	 * getTakedownsAchieved() + landed); break; case GRAPPLING:
+	 * statistics[nFighter].setGrapplingAttempts(statistics[nFighter].
+	 * getGrapplingAttempts() + launched);
+	 * statistics[nFighter].setGrapplingAchieved(statistics[nFighter].
+	 * getGrapplingAchieved() + landed); break; default: throw new
+	 * IllegalArgumentException("Invalid statistic type: " + stat); } }
+	 * 
+	 * 
+	 * public void writeStatistics(Fighter act) { int nFighter = fighterNumber(act);
+	 * String newLine = System.getProperty("line.separator");
+	 * 
+	 * setPbp(newLine + PtComments.misc.get(Sim.STATISTICS) + ": " + act.getName());
+	 * 
+	 * setPbp(PtComments.misc.get(Sim.PUNCHES) + " " +
+	 * statiticsLine(statistics[nFighter].punchesLaunched,
+	 * statistics[nFighter].punchesLanded)); setPbp(PtComments.misc.get(Sim.KICKS) +
+	 * " " + statiticsLine(statistics[nFighter].kicksLaunched,
+	 * statistics[nFighter].kicksLanded));
+	 * setPbp(PtComments.misc.get(Sim.CLINCH_STRIKES) + " " +
+	 * statiticsLine(statistics[nFighter].clinchStrikesLaunched,
+	 * statistics[nFighter].clinchStrikesLanded));
+	 * setPbp(PtComments.misc.get(Sim.TAKEDOWNS) + " " +
+	 * statiticsLine(statistics[nFighter].takedownAttempts,
+	 * statistics[nFighter].takedownsAchieved));
+	 * setPbp(PtComments.misc.get(Sim.GNP_STRIKES) + " " + statiticsLine(
+	 * statistics[nFighter].groundAndPoundStrikesLaunched,
+	 * statistics[nFighter].groundAndPoundStrikesLanded));
+	 * setPbp(PtComments.misc.get(Sim.SUBMISSIONS) + " " +
+	 * statiticsLine(statistics[nFighter].submissionAttempts,
+	 * statistics[nFighter].submissionsAchieved));
+	 * setPbp(PtComments.misc.get(Sim.GRAPPLING) + " " +
+	 * statiticsLine(statistics[nFighter].grapplingAttempts,
+	 * statistics[nFighter].grapplingAchieved)); }
 	 */
 
 	public static String statiticsLine(int launched, int landed) {

@@ -45,7 +45,7 @@ public class FighterResource {
 
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@GetMapping(value = "/strats/{id}")
 	public ResponseEntity<FighterStratsDTO> findByStratsById(@PathVariable Long id) {
 		FighterStratsDTO dto = fighterService.findByStratsById(id);
@@ -56,15 +56,14 @@ public class FighterResource {
 	@Secured(value = { "ROLE_MANAGER", "ROLE_ADMIN" })
 	public ResponseEntity<FighterDTO> insert(@RequestBody FighterDTO dto) {
 		dto = fighterService.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(dto.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
-	
+
 	@PutMapping(value = "/{id}")
 	@Secured(value = { "ROLE_MANAGER", "ROLE_ADMIN" })
-	public ResponseEntity<FighterDTO> update(@PathVariable Long id, @RequestBody FighterStratsDTO dto){
-	
+	public ResponseEntity<FighterDTO> update(@PathVariable Long id, @RequestBody FighterStratsDTO dto) {
+
 		FighterDTO newDto = fighterService.update(id, dto);
 		return ResponseEntity.ok().body(newDto);
 	}
@@ -75,6 +74,5 @@ public class FighterResource {
 		fighterService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
 
 }

@@ -10,9 +10,7 @@ public abstract class Sim {
 	public static final int refRuleStrict = 4;
 	public static final int refProfessionalism = 6;
 
-
-	
-	
+	//Sim
 	public static final int BIGRANDOM = 20;
 	public static final int SMALLRANDOM = 10;
 	public static final int DAMAGECUT = 25;
