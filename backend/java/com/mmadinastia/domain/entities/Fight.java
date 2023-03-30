@@ -215,6 +215,9 @@ public class Fight implements Serializable {
 
 			if (currentRound >= numberRounds) {
 				boutFinished = true;
+				setPbp("    ");
+				setPbp(PtComments.misc.get(Sim.GO_TO_THE_JUDGES));
+				
 			}
 		}
 
@@ -7181,10 +7184,10 @@ public class Fight implements Serializable {
 		// Get the judges criteria
 		for (int i = 1; i <= numberJudges; i++) {
 			if (judgeFightFullFight(fighter1, fighter2, currentRound) == 0) {
-				setPbp(PtComments.misc.get(Sim.JUDGE) + " " + fighter1.getName());
+				setPbp(PtComments.misc.get(Sim.JUDGE) + "1: " + fighter1.getName());
 				fighter0Wins++;
 			} else {
-				setPbp(PtComments.misc.get(Sim.JUDGE) + " " + fighter2.getName());
+				setPbp(PtComments.misc.get(Sim.JUDGE) + "1: " + fighter2.getName());
 			}
 		}
 
@@ -7311,6 +7314,7 @@ public class Fight implements Serializable {
 		for (int index = 1; index <= numberJudges; index++) {
 			JudgePerRound judgeResult = judgeFightRoundWise(fighter1, fighter2, numberRounds);
 
+			setPbp("   ");
 			setPbp(PtComments.misc.get(Sim.JUDGE) + " " + fighter1.getName() + " " + judgeResult.getPoints1());
 			setPbp(PtComments.misc.get(Sim.JUDGE) + " " + fighter2.getName() + " " + judgeResult.getPoints2());
 			setPbp("   ");

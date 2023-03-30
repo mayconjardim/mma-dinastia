@@ -74,6 +74,7 @@ public class FighterService {
 	}
 
 	public void copyDtoToEntity(FighterDTO fighterDto, Fighter entity) {
+		
 		entity.setFirstName(fighterDto.getFirstName());
 		entity.setLastName(fighterDto.getLastName());
 		entity.setNickname(fighterDto.getLastName());
@@ -98,6 +99,29 @@ public class FighterService {
 		entity.setConditioning(fighterDto.getConditioning());
 		entity.setKoResistance(fighterDto.getKoResistance());
 		entity.setToughness(fighterDto.getToughness());
+		
+		entity.setStratPunching(25);
+		entity.setStratKicking(25);
+		entity.setStratClinching(22);
+		entity.setStratTakedowns(25);
+
+		entity.setStratDirtyBoxing(25);
+		entity.setStratThaiClinch(25);
+		entity.setStratClinchTakedowns(25);
+		entity.setStratAvoidClinch(25);
+
+		entity.setStratGNP(20);
+		entity.setStratSub(20);
+		entity.setStratPositioning(20);
+		entity.setStratLNP(20);
+		entity.setStratStandUp(20);
+
+		entity.setFancyPunches(0);
+		entity.setFancyKicks(0);
+		entity.setFancySubmissions(0);
+		entity.setTacticalStyle(1);
+		entity.setDirtyFighting(0);
+		entity.setFightingStyle(0);
 	}
 
 	private void copyStrats(FighterStratsDTO dto, Fighter entity) {

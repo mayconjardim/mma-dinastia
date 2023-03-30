@@ -438,7 +438,7 @@ public abstract class PtComments {
 					+ " situação apesar de %d1 fazer esforços para escapar da montada.;%d2 luta e libera sua perna!;0;0;0;0;Movimento de"
 					+ " solo;0;0;0;0;0;0;15;",
 			"%a2 tenta manter sua posição enquanto procura talvez começar um ground and pound...;%a1 controla a situação apesar de %d1"
-					+ " fazer esforços para escapar damontada.;%d2 luta e empurra seu oponente talvez um pouco ansiosamente;0;0;10;13;Movimento no solo;0;0;0;0;0;0;0;",
+					+ " fazer esforços para escapar da montada.;%d2 luta e empurra seu oponente talvez um pouco ansiosamente;0;0;10;13;Movimento no solo;0;0;0;0;0;0;0;",
 			"%d2 tenta escapar da montada...;%a1 não é pego de surpresa e se move para a lateral para manter sua posição superior.;%d2"
 					+ " luta e empurra seu oponente talvez um pouco ansiosamente;0;0;10;13;Movimento no solo;0;0;0;0;0;13;0;"
 
