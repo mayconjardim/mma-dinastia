@@ -1,6 +1,8 @@
 package com.mmadinastia.domain.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import com.mmadinastia.api.dto.FighterDTO;
 import com.mmadinastia.api.dto.FighterStratsDTO;
 import com.mmadinastia.domain.entities.Fighter;
 import com.mmadinastia.domain.repositories.FighterRepository;
+import com.mmadinastia.domain.services.exceptions.DatabaseException;
 import com.mmadinastia.domain.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -35,7 +38,7 @@ public class FighterService {
 
 		return assembler.toDTO(fighter);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public FighterStratsDTO findByStratsById(Long id) {
 
@@ -59,13 +62,23 @@ public class FighterService {
 	@Transactional
 	public FighterDTO update(Long id, FighterStratsDTO dto) {
 
-			Fighter entity = findOrFail(id);
+		Fighter entity = findOrFail(id);
 
-			copyStrats(dto, entity);
+		copyStrats(dto, entity);
 
-			entity = fighterRepository.save(entity);
-			
-			return new FighterDTO(entity);
+		entity = fighterRepository.save(entity);
+
+		return new FighterDTO(entity);
+	}
+
+	public void delete(Long id) {
+		try {
+			fighterRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id não encontrado " + id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Violação de integridade!");
+		}
 	}
 
 	public Fighter findOrFail(Long id) {
@@ -74,7 +87,7 @@ public class FighterService {
 	}
 
 	public void copyDtoToEntity(FighterDTO fighterDto, Fighter entity) {
-		
+
 		entity.setFirstName(fighterDto.getFirstName());
 		entity.setLastName(fighterDto.getLastName());
 		entity.setNickname(fighterDto.getLastName());
@@ -99,7 +112,7 @@ public class FighterService {
 		entity.setConditioning(fighterDto.getConditioning());
 		entity.setKoResistance(fighterDto.getKoResistance());
 		entity.setToughness(fighterDto.getToughness());
-		
+
 		entity.setStratPunching(25);
 		entity.setStratKicking(25);
 		entity.setStratClinching(22);
