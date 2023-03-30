@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class FightResource {
 	private FightService fightService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<FightDTO> findById(@PathVariable Long id) throws Exception {
+	public ResponseEntity<FightDTO> findById(@PathVariable Long id) {
 		FightDTO dto = fightService.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
@@ -35,6 +36,13 @@ public class FightResource {
 		dto = fightService.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
+	}
+	
+	@PutMapping("/{id}/sim")
+	public ResponseEntity<FightDTO> update(@PathVariable Long id) {
+		FightDTO dto = fightService.findById(id);
+		fightService.simuleFight(id);
+		return ResponseEntity.ok().body(dto);
 	}
 
 }

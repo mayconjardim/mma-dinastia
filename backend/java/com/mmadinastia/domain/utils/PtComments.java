@@ -250,7 +250,7 @@ public abstract class PtComments {
 			"%a1 tenta controlar %d1 no clinch e usar seu boxe sujo;%a2 empurra a nuca de %d1 com uma mão e dá alguns socos na cabeça dele"
 					+ " com a outra, isso com certeza o machuca;%d2 empurra %a2 longe antes que ele pudesse tentar qualquer coisa;0;2;1;4;Socos;3;3;0;0;0;0;1;",
 			"%a1 empurra %d2 contra %site e tenta trabalhar seu boxe sujo;%a2 controla %d1 no clinch e desfere alguns uppercuts, belos golpes"
-					+ " %d2 é ferido;%d2 empurra %a2 para longe e gira;8 ;2;1;4;Uppercuts;3;3;0;0;0;0;1;",
+					+ " %d2 é ferido;%d2 empurra %a2 para longe e gira;8;2;1;4;Uppercuts;3;3;0;0;0;0;1;",
 			"%a1 tenta segurar %d1 em um clinch contra o %holdSite;%a2 empurra a cabeça de %d2 para trás com seu antebraço e tenta alguns"
 					+ " socos nas costelas, %d2 não conseguiu se defender e esses socos acertaram com força;%d2 escapa do clinch antes que %a1 pudesse mantê-lo preso;10;2;1;4;Socos;3;3;0;0;0;0;1;",
 			"%a1 está segurando %d1 contra o %holdSite com os dedos em todo o rosto de %d2;%d2 parece desconfortável e tenta lutar, %a1 "
@@ -612,7 +612,7 @@ public abstract class PtComments {
 			"%d2 está na guarda borboleta de %a2...;%a2 estende as pernas e raspa %d1 ! Ele ganha "
 					+ "a posição de 100kg.;%d1 chuta a perna para trás e reinicia.;0;1;8;10;Movimento de Solo;0;0;0;0;0;13;0;",
 			"%d2 está na guarda borboleta de %a2...;%a2 estende as pernas e raspa %d1! Ele ganha a a"
-					+ " posição de 100kg.;%d1 movimenta os quadris e se livra dos ganchos.;0;1;8 ;10;Movimento no solo;0;0;0;0;0;13;10;"
+					+ " posição de 100kg.;%d1 movimenta os quadris e se livra dos ganchos.;0;1;8;10;Movimento no solo;0;0;0;0;0;13;10;"
 
 	));
 
@@ -900,8 +900,8 @@ public abstract class PtComments {
 	public static final ArrayList<String> fullMountSub1 = new ArrayList<String>(Arrays.asList(
 			"%a1 tenta finalizar a luta com uma chave de braço por cima;A dor obriga %d2 a bater! Acabou!;%d2 é esperto o suficiente para evitar a tentativa de finalização;13;0;10;8;chave de braço;1;1;0;0;0;0;0",
 			"%a1 tenta finalizar a luta com uma chave de braço por cima;A dor obriga %d2 a bater! Acabou!;%d2 é esperto o suficiente para evitar a tentativa de finalização;14;0;10;8;chave de braço;1;1;0;0;0;0;0",
-			"%a2 segura o braço esquerdo de %d1 e tenta uma kimura;O braço %d2 está dobrado em um ângulo terrível! %d1 bate repetidamente;%d1 segura o próprio braço e luta até se libertar;13;0;10;8 ;kimura;1;1;0;0;0;0;0",
-			"%a2 segura o braço direito de %d1 e tenta uma kimura;O braço %d2 está dobrado em um ângulo terrível! %d1 bate repetidamente;%d1 segura o próprio braço e luta até se libertar;14;0;10;8 ;kimura;1;1;0;0;0;0;0",
+			"%a2 segura o braço esquerdo de %d1 e tenta uma kimura;O braço %d2 está dobrado em um ângulo terrível! %d1 bate repetidamente;%d1 segura o próprio braço e luta até se libertar;13;0;10;8;kimura;1;1;0;0;0;0;0",
+			"%a2 segura o braço direito de %d1 e tenta uma kimura;O braço %d2 está dobrado em um ângulo terrível! %d1 bate repetidamente;%d1 segura o próprio braço e luta até se libertar;14;0;10;8;kimura;1;1;0;0;0;0;0",
 			"%a1 isola o braço e o pescoço de %d1 procurando um triângulo de braço;%a2 o fecha e circula em direção à cabeça de %d2. Está muito encaixado e %d1 é forçado a bater!;%d1 é capaz de aliviar a pressão em seu pescoço e escapar da finalização.;0;0;10;8;Arm Triangle;1;1;0;0;0;0;0;",
 			"%a1 senta-se no alto do peito de %d1 e puxa a perna por baixo da cabeça de %d2. Aí está a tentativa do triângulo!;%d1 tenta rolar, mas %a1 está muito à frente dele e já tem o triângulo travado. %d1 bate!;%d2 tenta rolar. Ele é muito rápido para %a1 e consegue escapar! Essa foi uma jogada arriscada de %a2 e custou a ele a posição.;0;0;10;8;Triângulo do Monte;1;1;0;0;0;0;10;",
 			"%a2 finge alguns socos e depois de uma breve luta ele pega o braço de %d1 e tenta uma chave de braço!;%a2 lança alguns golpes no rosto de %d1 e depois se lança para trás com toda a força! %d2 bate com um sorriso dolorido.;%d2 segura a própria mão e quebra o a tentativa de finalização de %a2. Ele rola sobre si mesmo e se lança sobre %a1.;14;0;0;0;Arlock;0;0;0;0;1;0;14;",

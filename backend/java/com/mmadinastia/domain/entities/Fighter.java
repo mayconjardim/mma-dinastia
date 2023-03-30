@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,9 +33,9 @@ public class Fighter implements Serializable {
 	private String lastName;
 	private String nickname;
 	private Integer age;
-	private Integer win;
-	private Integer loss;
-	private Integer draw;
+	private Integer win = 0;
+	private Integer loss = 0;
+	private Integer draw = 0;
 	private WeightClass weightClass;
 
 	// Habilidaddes
@@ -69,7 +70,7 @@ public class Fighter implements Serializable {
 
 	// Record
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Record> records = new ArrayList<>();
 
 	// Strategia

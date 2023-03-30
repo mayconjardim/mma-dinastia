@@ -46,7 +46,7 @@ public class FighterResource {
 	}
 	
 	@GetMapping(value = "/strats/{id}")
-	public ResponseEntity<FighterStratsDTO> findByStratsById(@PathVariable Long id) throws Exception {
+	public ResponseEntity<FighterStratsDTO> findByStratsById(@PathVariable Long id) {
 		FighterStratsDTO dto = fighterService.findByStratsById(id);
 		return ResponseEntity.ok().body(dto);
 	}

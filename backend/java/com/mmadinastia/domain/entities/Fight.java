@@ -20,6 +20,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.mmadinastia.domain.enums.WeightClass;
 import com.mmadinastia.domain.utils.JudgePerRound;
 import com.mmadinastia.domain.utils.Moves;
@@ -63,6 +66,7 @@ public class Fight implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "fight_pbp", joinColumns = @JoinColumn(name = "fight_id"))
 	@Lob
+	@Fetch(FetchMode.JOIN) 
 	private List<String> pbp = new ArrayList<>();
 
 	/// Atributos de luta
