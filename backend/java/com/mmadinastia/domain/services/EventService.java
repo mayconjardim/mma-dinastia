@@ -63,7 +63,7 @@ public class EventService {
 		
 			Event entity = findOrFail(id);
 			dto.setId(entity.getId());
-			dto.setRegisterDate(entity.getRegisterDate());
+			
 			
 			disassembler.copyToDomainObject(dto, entity);
 

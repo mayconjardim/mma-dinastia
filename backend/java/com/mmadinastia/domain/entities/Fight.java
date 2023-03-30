@@ -63,6 +63,10 @@ public class Fight implements Serializable {
 	@JoinColumn(name = "fighter2_id")
 	private Fighter fighter2;
 
+	@ManyToOne
+	@JoinColumn(name = "event_id")
+	private Event event;
+
 	@ElementCollection
 	@CollectionTable(name = "fight_pbp", joinColumns = @JoinColumn(name = "fight_id"))
 	@Lob

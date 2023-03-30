@@ -3,8 +3,6 @@ package com.mmadinastia.api.resources;
 import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mmadinastia.api.dto.EventDTO;
-import com.mmadinastia.api.dto.EventDTO;
-import com.mmadinastia.domain.services.EventService;
 import com.mmadinastia.domain.services.EventService;
 
 @RestController
@@ -43,11 +39,13 @@ public class EventResource {
 		return ResponseEntity.created(uri).body(dto);
 	}
 
-	@PutMapping("/{id}/sim")
-	public ResponseEntity<EventDTO> update(@PathVariable Long id) {
-		EventDTO dto = eventService.findById(id);
-		eventService.simuleEvent(id);
-		return ResponseEntity.ok().body(dto);
+	@PutMapping(value = "/{id}")
+	@Secured(value = "ROLE_ADMIN")
+	public ResponseEntity<EventDTO> update(@PathVariable Long id, @RequestBody EventDTO dto) {
+
+		EventDTO newDto = eventService.update(id, dto);
+
+		return ResponseEntity.ok().body(newDto);
 	}
 
 	@DeleteMapping(value = "/{id}")

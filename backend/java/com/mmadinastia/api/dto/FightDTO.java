@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Setter
 @Getter
 @NoArgsConstructor
@@ -27,14 +26,16 @@ public class FightDTO implements Serializable {
 	private Boolean happened;
 	private FighterDTO fighter1;
 	private FighterDTO fighter2;
-	
-	//Comments
+
+	// Comments
 	private String finishedType;
 	private String finishedDescription;
 	private Integer fighterWinner;
 	private String side;
 	private String location;
-	private String injuryComment ;
+	private String injuryComment;
+
+	private EventDTO event;
 
 	private List<String> pbp = new ArrayList<>();
 
@@ -48,14 +49,15 @@ public class FightDTO implements Serializable {
 		happened = entity.getHappened();
 		fighter1 = new FighterDTO(entity.getFighter1());
 		fighter2 = new FighterDTO(entity.getFighter2());
-		entity.getPbp().forEach(pbp -> this.pbp.add(pbp));;
-		
-		 //Commnets
-		 finishedType = entity.getFinishedType();
-		 finishedDescription = entity.getFinishedDescription();
-		 fighterWinner = entity.getFighterWinner();
-		 side = entity.getSide();
-		 location = entity.getLocation();
-		 injuryComment = entity.getInjuryComment();
+
+		entity.getPbp().forEach(pbp -> this.pbp.add(pbp));
+
+		// Commnets
+		finishedType = entity.getFinishedType();
+		finishedDescription = entity.getFinishedDescription();
+		fighterWinner = entity.getFighterWinner();
+		side = entity.getSide();
+		location = entity.getLocation();
+		injuryComment = entity.getInjuryComment();
 	}
 }
