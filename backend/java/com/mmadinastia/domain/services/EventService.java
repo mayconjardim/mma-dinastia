@@ -37,9 +37,9 @@ public class EventService {
 	@Transactional(readOnly = true)
 	public EventDTO findById(Long id) {
 
-		Event entity = findOrFail(id);
+		Event event = findOrFail(id);
 
-		return new EventDTO(entity);
+		return new EventDTO(event);
 	}
 
 	@Transactional

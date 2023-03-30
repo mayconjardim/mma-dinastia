@@ -2,6 +2,8 @@ package com.mmadinastia.api.dto;
 
 import java.io.Serializable;
 
+import com.mmadinastia.domain.entities.Fighter;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,5 +44,28 @@ public class FighterStratsDTO implements Serializable {
 	private Integer fancyKicks;
 	private Integer fancySubmissions;
 	private Integer dirtyFighting;
+
+	public FighterStratsDTO(Fighter entity) {
+		this.id = entity.getId();
+		this.stratPunching = entity.getStratPunching();
+		this.stratKicking = entity.getStratKicking();
+		this.stratClinching = entity.getStratClinching();
+		this.stratTakedowns = entity.getStratTakedowns();
+		this.stratDirtyBoxing = entity.getStratDirtyBoxing();
+		this.stratThaiClinch = entity.getStratThaiClinch();
+		this.stratClinchTakedowns = entity.getStratClinchTakedowns();
+		this.stratAvoidClinch = entity.getStratAvoidClinch();
+		this.stratGNP = entity.getStratGNP();
+		this.stratSub = entity.getStratSub();
+		this.stratPositioning = entity.getStratPositioning();
+		this.stratLNP = entity.getStratLNP();
+		this.stratStandUp = entity.getStratStandUp();
+		this.fancyPunches = entity.getFancyPunches();
+		this.fightingStyle = entity.getFightingStyle();
+		this.tacticalStyle = entity.getTacticalStyle();
+		this.fancyKicks = entity.getFancyKicks();
+		this.fancySubmissions = entity.getFancySubmissions();
+		this.dirtyFighting = entity.getDirtyFighting();
+	}
 
 }
