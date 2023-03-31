@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -67,6 +68,9 @@ public class Fighter implements Serializable {
 	private Double conditioning;
 	private Double koResistance;
 	private Double toughness;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
 	// Record
 
@@ -184,7 +188,7 @@ public class Fighter implements Serializable {
 	private int[] roundAggPoints = new int[10];
 	private int[] roundTechPoints = new int[10];
 	private int[] pointsPenalization = new int[10];
-	
+
 	// Metodos de luta
 
 	public String getName() {

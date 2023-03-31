@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mmadinastia.domain.entities.Fighter;
+import com.mmadinastia.domain.entities.User;
 import com.mmadinastia.domain.enums.WeightClass;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Setter
 @Getter
@@ -52,8 +52,11 @@ public class FighterDTO implements Serializable {
 	private Double koResistance;
 	private Double toughness;
 
-	private List<RecordDTO> records = new ArrayList<>();
+	private Long userId;
+	private String username;
 	
+	private List<RecordDTO> records = new ArrayList<>();
+
 	public FighterDTO(Fighter entity) {
 		this.id = entity.getId();
 		this.firstName = entity.getFirstName();
@@ -83,9 +86,14 @@ public class FighterDTO implements Serializable {
 		this.conditioning = entity.getConditioning();
 		this.koResistance = entity.getKoResistance();
 		this.toughness = entity.getToughness();
+		this.userId = entity.getUser().getId();
+		this.username = entity.getUser().getUsername();
+	}
+
+	public FighterDTO(Fighter entity, List<User> users, List<Record> records) {
 		entity.getRecords().forEach(record -> this.records.add(new RecordDTO(record)));
 	}
-	
+
 	public Double getOverall() {
 		return punching + kicking + clinchStriking + clinchGrappling + takedowns +
 

@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
 
 		User user = findOrFail(id);
 
-		return new UserDTO(user);
+		return new UserDTO(user, user.getFighters());
 	}
 
 	@Transactional

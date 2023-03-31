@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.mmadinastia.domain.entities.Fighter;
 import com.mmadinastia.domain.entities.User;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +38,8 @@ public class UserDTO implements Serializable {
 	
 	private OffsetDateTime registerDate;
 
+	private Set<FighterDTO> fighters = new HashSet<>();
+	
 	private Set<RoleDTO> roles = new HashSet<>();
 
 	public UserDTO(User entity) {
@@ -46,6 +49,11 @@ public class UserDTO implements Serializable {
 		this.campName = entity.getCampName();
 		this.registerDate = entity.getRegisterDate();
 		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+	}
+	
+	public UserDTO(User entity, Set<Fighter> fighters) {
+		this(entity);
+		fighters.forEach(fighter -> this.fighters.add(new FighterDTO(fighter)));
 	}
 
 }

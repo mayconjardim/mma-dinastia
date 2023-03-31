@@ -97,6 +97,7 @@ public class FightService {
 		entity.setHappened(dto.getHappened());
 		entity.setFighter1(fighter1);
 		entity.setFighter2(fighter2);
+		
 	}
 
 	private void simuleFight(Fight obj) {

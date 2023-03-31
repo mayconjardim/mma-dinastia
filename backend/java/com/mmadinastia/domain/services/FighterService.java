@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mmadinastia.api.dto.FighterDTO;
 import com.mmadinastia.api.dto.FighterStratsDTO;
 import com.mmadinastia.domain.entities.Fighter;
+import com.mmadinastia.domain.entities.User;
 import com.mmadinastia.domain.repositories.FighterRepository;
+import com.mmadinastia.domain.repositories.UserRepository;
 import com.mmadinastia.domain.services.exceptions.DatabaseException;
 import com.mmadinastia.domain.services.exceptions.ResourceNotFoundException;
 
@@ -20,6 +22,9 @@ public class FighterService {
 
 	@Autowired
 	private FighterRepository fighterRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@Transactional(readOnly = true)
 	public Page<FighterDTO> findAllPaged(Pageable pageable) {
@@ -86,6 +91,9 @@ public class FighterService {
 
 	public void copyDtoToEntity(FighterDTO fighterDto, Fighter entity) {
 
+		User user = userRepository.getReferenceById(fighterDto.getUserId());
+		
+		entity.setUser(user);
 		entity.setFirstName(fighterDto.getFirstName());
 		entity.setLastName(fighterDto.getLastName());
 		entity.setNickname(fighterDto.getLastName());
