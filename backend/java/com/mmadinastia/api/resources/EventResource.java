@@ -42,9 +42,7 @@ public class EventResource {
 	@PutMapping(value = "/{id}")
 	@Secured(value = "ROLE_ADMIN")
 	public ResponseEntity<EventDTO> update(@PathVariable Long id, @RequestBody EventDTO dto) {
-
 		EventDTO newDto = eventService.update(id, dto);
-
 		return ResponseEntity.ok().body(newDto);
 	}
 

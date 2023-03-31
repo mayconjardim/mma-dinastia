@@ -15,6 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class EventDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,6 +26,8 @@ public class EventDTO implements Serializable {
 	private OffsetDateTime creationDate;
 	private OffsetDateTime eventDate;
 
+	private OrganizationDTO organization;
+
 	private List<FightDTO> fights = new ArrayList<>();
 
 	public EventDTO(Event entity) {
@@ -34,6 +37,7 @@ public class EventDTO implements Serializable {
 		this.attendance = entity.getAttendance();
 		this.creationDate = entity.getCreationDate();
 		this.eventDate = entity.getEventDate();
+		this.organization = new OrganizationDTO(entity.getOrganization());
 	}
 
 	public EventDTO(Event entity, List<Fight> fights) {

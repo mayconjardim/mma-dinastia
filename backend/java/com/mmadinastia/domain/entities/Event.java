@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,13 +35,17 @@ public class Event implements Serializable {
 	private String eventName;
 	private String arena;
 	private Integer attendance;
-	
+
 	@CreationTimestamp
 	@Column(nullable = false, columnDefinition = "datetime")
 	private OffsetDateTime creationDate;
-
-	private OffsetDateTime eventDate;
 	
+	private OffsetDateTime eventDate;
+
+	@ManyToOne
+	@JoinColumn(name = "organization_id")
+	private Organization organization;
+
 	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Fight> fights = new ArrayList<>();
 

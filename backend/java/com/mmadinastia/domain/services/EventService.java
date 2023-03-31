@@ -12,8 +12,10 @@ import com.mmadinastia.api.dto.EventDTO;
 import com.mmadinastia.api.dto.FightDTO;
 import com.mmadinastia.domain.entities.Event;
 import com.mmadinastia.domain.entities.Fight;
+import com.mmadinastia.domain.entities.Organization;
 import com.mmadinastia.domain.repositories.EventRepository;
 import com.mmadinastia.domain.repositories.FightRepository;
+import com.mmadinastia.domain.repositories.OrganizationRepository;
 import com.mmadinastia.domain.services.exceptions.DatabaseException;
 import com.mmadinastia.domain.services.exceptions.ResourceNotFoundException;
 
@@ -26,6 +28,9 @@ public class EventService {
 	@Autowired
 	private FightRepository fightRepository;
 
+	@Autowired
+	private OrganizationRepository organizationRepository;
+	
 	@Transactional(readOnly = true)
 	public Page<EventDTO> findAllPaged(Pageable pageable) {
 
@@ -81,12 +86,15 @@ public class EventService {
 
 	private void copyDtoToEntity(EventDTO dto, Event entity) {
 
+		Organization organization = organizationRepository.getReferenceById(dto.getOrganization().getId());
+		
 		entity.setEventName(dto.getEventName());
 		entity.setArena(dto.getArena());
 		entity.setAttendance(dto.getAttendance());
 		entity.setCreationDate(dto.getCreationDate());
 		entity.setEventDate(dto.getEventDate());
-
+		entity.setOrganization(organization);
+		
 		entity.getFights().clear();
 		for (FightDTO fightDto : dto.getFights()) {
 			Fight fights = fightRepository.getReferenceById(fightDto.getId());
