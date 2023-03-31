@@ -34,7 +34,6 @@ public class Organization implements Serializable {
 	private String initials;
 	
 	@CreationTimestamp
-	@Column(nullable = false)
 	private OffsetDateTime registerDate;
 	
 }

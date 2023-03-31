@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 
 import com.mmadinastia.domain.entities.User;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,10 +34,6 @@ public class UserDTO implements Serializable {
 	
 	@NotBlank(message = "Campo obrigatorio")
 	private String campName;
-	
-	@Size(min = 5, max = 20, message = "Deve ter entre 5 e 20 caracteres")
-	@NotBlank(message = "Campo obrigatorio")
-	private String password;
 	
 	private OffsetDateTime registerDate;
 

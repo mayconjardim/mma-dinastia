@@ -1,5 +1,7 @@
 package com.mmadinastia.domain.services;
 
+import java.time.OffsetDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -78,8 +80,8 @@ public class OrganizationService {
 
 		entity.setInitials(dto.getInitials());
 		entity.setName(dto.getName());
-		entity.setRegisterDate(dto.getRegisterDate());
-
+		OffsetDateTime currentRegisterDate = entity.getRegisterDate();
+		entity.setRegisterDate(currentRegisterDate);
 	}
 
 }
