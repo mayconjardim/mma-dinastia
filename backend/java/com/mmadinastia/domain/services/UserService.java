@@ -1,7 +1,5 @@
 package com.mmadinastia.domain.services;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,8 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mmadinastia.api.assembler.UserDtoAssembler;
-import com.mmadinastia.api.assembler.UserDtoDisassembler;
+import com.mmadinastia.api.dto.RoleDTO;
 import com.mmadinastia.api.dto.UserDTO;
 import com.mmadinastia.api.dto.UserInsertDTO;
 import com.mmadinastia.api.dto.UserUpdateDTO;
@@ -38,16 +35,12 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Autowired
-	private UserDtoAssembler assembler;
-
-	@Autowired
-	private UserDtoDisassembler disassembler;
-
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
 
-		return assembler.toCollectionDTO(userRepository.findAll(pageable));
+		Page<User> page = userRepository.findAll(pageable);
+
+		return page.map(u -> new UserDTO(u));
 	}
 
 	@Transactional(readOnly = true)
@@ -55,7 +48,7 @@ public class UserService implements UserDetailsService {
 
 		User user = findOrFail(id);
 
-		return assembler.toDTO(user);
+		return new UserDTO(user);
 	}
 
 	@Transactional
@@ -63,37 +56,26 @@ public class UserService implements UserDetailsService {
 
 		User entity = new User();
 
-		disassembler.copyToDomainObject(dto, entity);
-
+		copyDtoToEntity(dto, entity);
 		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-
-		entity.getRoles().clear();
-		Role role = roleRepository.getReferenceById(2L);
-		entity.getRoles().add(role);
 
 		entity = userRepository.save(entity);
 
-		return assembler.toDTO(entity);
+		return new UserDTO(entity);
 	}
 
 	@Transactional
 	public UserDTO update(Long id, UserUpdateDTO dto) {
-		try {
-			User entity = findOrFail(id);
-			entity.getRoles().clear();
 
-			if (!dto.getPassword().equals(entity.getPassword())) {
-				dto.setPassword(passwordEncoder.encode(dto.getPassword()));
-			}
+		User entity = findOrFail(id);
 
-			disassembler.copyToDomainObjectUpdate(dto, entity);
-
-			return assembler.toDTO(userRepository.save(entity));
+		if (!dto.getPassword().equals(entity.getPassword())) {
+			dto.setPassword(passwordEncoder.encode(dto.getPassword()));
 		}
+		copyDtoToEntity(dto, entity);
 
-		catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id não encontrado " + id);
-		}
+		entity = userRepository.save(entity);
+		return new UserDTO(entity);
 
 	}
 
@@ -121,6 +103,35 @@ public class UserService implements UserDetailsService {
 		}
 
 		return user;
+	}
+
+	private void copyDtoToEntity(UserDTO dto, User entity) {
+
+		entity.setUsername(dto.getUsername());
+		entity.setEmail(dto.getEmail());
+		entity.setCampName(dto.getCampName());
+		entity.setRegisterDate(dto.getRegisterDate());
+
+		entity.getRoles().clear();
+		for (RoleDTO roleDTO : dto.getRoles()) {
+			Role role = roleRepository.getReferenceById(roleDTO.getId());
+			entity.getRoles().add(role);
+		}
+
+	}
+
+	private void copyDtoToEntity(UserUpdateDTO dto, User entity) {
+
+		entity.setUsername(dto.getUsername());
+		entity.setEmail(dto.getEmail());
+		entity.setCampName(dto.getCampName());
+
+		entity.getRoles().clear();
+		for (RoleDTO roleDTO : dto.getRoles()) {
+			Role role = roleRepository.getReferenceById(roleDTO.getId());
+			entity.getRoles().add(role);
+		}
+
 	}
 
 }
