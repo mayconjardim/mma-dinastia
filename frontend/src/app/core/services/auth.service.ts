@@ -34,6 +34,14 @@ export class AuthService {
     );
   }
 
+  isAuthenticated() {
+    let token = localStorage.getItem('token');
+    if (token != null) {
+      return !this.jwtService.isTokenExpired(token);
+    }
+    return false;
+  }
+
   successfulLogin(access_token: string, User: string, UserId: string) {
     localStorage.setItem('token', access_token);
     localStorage.setItem('userName', User);
