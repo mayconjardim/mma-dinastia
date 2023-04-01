@@ -47,4 +47,8 @@ export class AuthService {
     localStorage.setItem('userName', User);
     localStorage.setItem('userId', UserId);
   }
+
+  logout() {
+    localStorage.clear();
+  }
 }
