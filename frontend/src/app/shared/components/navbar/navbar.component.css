@@ -1,0 +1,17 @@
+.navbar {
+  background: var(--primary-color);
+  color: var(--branco);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.navbar a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+  text-underline-offset: 0.5rem;
+}
+.navbar .logo {
+  margin-right: 0.5rem;
+}
+.navbar .p-2 {
+  background: var(--primary-color);
+}/*# sourceMappingURL=navbar.component.css.map */
