@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+
 import { API_CONFIG } from '../config/api.config';
 import { Creds } from '../models/creds';
 
@@ -30,5 +29,11 @@ export class AuthService {
       body,
       this.httpOptions
     );
+  }
+
+  successfulLogin(access_token: string, User: string, UserId: string) {
+    localStorage.setItem('token', access_token);
+    localStorage.setItem('userName', User);
+    localStorage.setItem('userId', UserId);
   }
 }
