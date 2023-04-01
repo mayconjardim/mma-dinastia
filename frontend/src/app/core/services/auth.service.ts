@@ -3,11 +3,14 @@ import { Injectable } from '@angular/core';
 
 import { API_CONFIG } from '../config/api.config';
 import { Creds } from '../models/creds';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  jwtService: JwtHelperService = new JwtHelperService();
+
   private httpOptions = {
     headers: new HttpHeaders({
       Authorization: `Basic ${window.btoa(
