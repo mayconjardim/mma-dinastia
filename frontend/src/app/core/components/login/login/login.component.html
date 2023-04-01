@@ -28,9 +28,10 @@
         />
         <div class="flex justify-between items-baseline">
           <button
-            disabled="!validForm()"
+            [disabled]="!validForm()"
+            (click)="login()"
             type="submit"
-            class="mt-4 bg-black text-white py-2 px-6 rounded-md hover:bg-purple-900"
+            class="mt-4 bg-black text-white py-2 px-6 rounded-md"
           >
             Login
           </button>
