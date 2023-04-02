@@ -11,6 +11,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   jwtService: JwtHelperService = new JwtHelperService();
 
+  constructor(private http: HttpClient) {}
+
   private httpOptions = {
     headers: new HttpHeaders({
       Authorization: `Basic ${window.btoa(
@@ -18,8 +20,6 @@ export class AuthService {
       )}`,
     }),
   };
-
-  constructor(private http: HttpClient) {}
 
   authenticate(creds: Creds) {
     const body = new HttpParams()

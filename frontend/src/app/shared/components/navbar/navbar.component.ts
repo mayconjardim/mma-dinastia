@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,13 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+  constructor(private service: AuthService) {}
+
   isLogged(): boolean {
-    return false;
+    return this.service.isAuthenticated();
+  }
+
+  logout() {
+    this.service.logout();
   }
 }
