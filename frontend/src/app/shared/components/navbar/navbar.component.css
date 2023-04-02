@@ -3,6 +3,8 @@
   color: var(--branco);
   text-transform: uppercase;
   font-weight: 800;
+  z-index: 2;
+  position: relative;
 }
 .navbar a:hover {
   color: var(--secondary-color);
@@ -14,4 +16,4 @@
 }
 .navbar .p-2 {
   background: var(--primary-color);
-}/*# sourceMappingURL=navbar.component.css.map */
+} /*# sourceMappingURL=navbar.component.css.map */

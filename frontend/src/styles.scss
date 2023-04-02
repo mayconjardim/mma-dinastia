@@ -3,10 +3,6 @@
 @import url(./assets/config-scss/variables.scss);
 @import url(./assets/config-scss/reset.scss);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 html {
   font-family: "Prompt", sans-serif;
 }

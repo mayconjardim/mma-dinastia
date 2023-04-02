@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -11,13 +12,20 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor(private service: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toast: ToastrService
+  ) {}
 
   isLogged(): boolean {
-    return this.service.isAuthenticated();
+    return this.authService.isAuthenticated();
   }
 
   logout() {
-    this.service.logout();
+    this.authService.logout();
+    this.router.navigate(['home']);
+    this.toast.info('Deslogado com sucesso!', 'Logout');
+    window.location.reload();
   }
 }
